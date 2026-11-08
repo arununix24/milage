@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Mileage Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Car Mileage Calculator</h1>
+            <p>Calculate your vehicle's fuel efficiency and plan your trips</p>
+        </header>
+
+        <main>
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="efficiency">Fuel Efficiency</button>
+                <button class="tab-btn" data-tab="trip">Trip Planner</button>
+            </div>
+
+            <div id="efficiency-tab" class="tab-content active">
+                <h2>Calculate Fuel Efficiency</h2>
+                <form id="mileage-form">
+                    <div class="form-group">
+                        <label for="distance">Distance traveled</label>
+                        <div class="input-with-select">
+                            <input type="number" id="distance" placeholder="Enter distance" step="0.01" min="0">
+                            <select id="distance-unit">
+                                <option value="kilometers">Kilometers</option>
+                                <option value="miles">Miles</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fuel">Fuel consumed</label>
+                        <div class="input-with-select">
+                            <input type="number" id="fuel" placeholder="Enter fuel amount" step="0.01" min="0">
+                            <select id="fuel-unit">
+                                <option value="liters">Liters</option>
+                                <option value="gallons">Gallons</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="efficiency-fuel-price">Fuel price (optional)</label>
+                        <div class="input-with-select">
+                            <input type="number" id="efficiency-fuel-price" placeholder="Enter fuel price" step="0.01" min="0">
+                            <div class="price-unit-wrapper">
+                                <span>per</span>
+                                <select id="efficiency-price-unit">
+                                    <option value="liter">liter</option>
+                                    <option value="gallon">gallon</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="efficiency-currency">Currency</label>
+                        <select id="efficiency-currency" class="full-width-select">
+                            <option value="USD">USD ($)</option>
+                            <option value="EUR">EUR (€)</option>
+                            <option value="GBP">GBP (£)</option>
+                            <option value="JPY">JPY (¥)</option>
+                            <option value="INR">INR (₹)</option>
+                            <option value="CAD">CAD (C$)</option>
+                            <option value="AUD">AUD (A$)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="calculate-btn">Calculate</button>
+                        <button type="reset" id="reset-btn">Reset</button>
+                    </div>
+                </form>
+
+                <div id="error-message" class="error-message"></div>
+
+                <div id="result-container" class="result-container">
+                    <h2>Results</h2>
+                    <div class="results-grid">
+                        <div class="result-item">
+                            <h3>Fuel Efficiency</h3>
+                            <div id="result-display">
+                                <div class="result-value"><span id="result">--</span></div>
+                                <div class="result-unit"><span id="result-unit">km/l</span></div>
+                            </div>
+                        </div>
+                        <div class="result-item" id="cost-result-item">
+                            <h3>Total Fuel Cost</h3>
+                            <div>
+                                <div class="result-value">
+                                    <span id="efficiency-currency-symbol"></span><span id="efficiency-cost">--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p id="result-explanation" class="result-explanation"></p>
+                </div>
+            </div>
+
+            <div id="trip-tab" class="tab-content">
+                <h2>Plan Your Trip</h2>
+                <form id="trip-form">
+                    <div class="form-group">
+                        <label for="trip-distance">Total distance to travel</label>
+                        <div class="input-with-select">
+                            <input type="number" id="trip-distance" placeholder="Enter trip distance" step="0.01" min="0">
+                            <select id="trip-distance-unit">
+                                <option value="kilometers">Kilometers</option>
+                                <option value="miles">Miles</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="vehicle-efficiency">Vehicle's mileage/efficiency</label>
+                        <div class="input-with-select">
+                            <input type="number" id="vehicle-efficiency" placeholder="Enter vehicle mileage" step="0.01" min="0">
+                            <select id="efficiency-unit">
+                                <option value="km/l">km/l</option>
+                                <option value="mpg">mpg</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fuel-price">Fuel price</label>
+                        <div class="input-with-select">
+                            <input type="number" id="fuel-price" placeholder="Enter fuel price" step="0.01" min="0">
+                            <div class="price-unit-wrapper">
+                                <span>per</span>
+                                <select id="price-unit">
+                                    <option value="liter">liter</option>
+                                    <option value="gallon">gallon</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="trip-currency">Currency</label>
+                        <select id="trip-currency" class="full-width-select">
+                            <option value="USD">USD ($)</option>
+                            <option value="EUR">EUR (€)</option>
+                            <option value="GBP">GBP (£)</option>
+                            <option value="JPY">JPY (¥)</option>
+                            <option value="INR">INR (₹)</option>
+                            <option value="CAD">CAD (C$)</option>
+                            <option value="AUD">AUD (A$)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="calculate-trip-btn">Calculate Trip</button>
+                        <button type="reset" id="reset-trip-btn">Reset</button>
+                    </div>
+                </form>
+
+                <div id="trip-error-message" class="error-message"></div>
+
+                <div id="trip-result-container" class="result-container">
+                    <h2>Trip Estimates</h2>
+                    <div class="trip-results-grid">
+                        <div class="trip-result-item">
+                            <h3>Fuel Required</h3>
+                            <div class="result-value"><span id="fuel-required">--</span></div>
+                            <div class="result-unit"><span id="fuel-required-unit">liters</span></div>
+                        </div>
+                        <div class="trip-result-item">
+                            <h3>Estimated Cost</h3>
+                            <div class="result-value">
+                                <span id="trip-currency-symbol"></span><span id="fuel-cost">--</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p id="trip-explanation" class="result-explanation"></p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2023 Car Mileage Calculator | Created with HTML, CSS, and JavaScript</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
